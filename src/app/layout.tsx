@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Space_Grotesk } from "next/font/google"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "[Title]",
+  title: "Interactive Card Details Form",
   description:
-    "Check out Darkstar's solution for the {challenge name} challenge on Frontend Mentor",
+    "Check out Darkstar's solution for the Interactive Card Details Form challenge on Frontend Mentor",
 
   authors: {
     name: "Darkstar",
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://challenge-name-darkstarxdd.vercel.app/",
-    title: "devfinder",
+    url: "https://interactive-card-details-form-darkstarxdd.vercel.app/",
+    title: "Interactive Card Details Form",
 
     description:
-      "Check out Darkstar's solution for the {challenge name} challenge on Frontend Mentor",
+      "Check out Darkstar's solution for the Interactive Card Details Form challenge on Frontend Mentor",
 
     images: {
-      url: "https://challenge-name-darkstarxdd.vercel.app/og-img.jpeg",
+      url: "https://interactive-card-details-form-darkstarxdd.vercel.app/og-img.jpeg",
       type: "image/jpeg",
       width: 1440,
       height: 756,
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
 }
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-space-grotesk",
 })
 
 export default function RootLayout({
@@ -41,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-inter bg-zinc-800 text-white`}>
+      <body
+        className={`${spaceGrotesk.variable} font-space-grotesk bg-zinc-800 text-white`}
+      >
         {children}
       </body>
     </html>
