@@ -2,4 +2,14 @@
 
 @theme {
   --font-space-grotesk: var(--font-space-grotesk);
+
+  --color-foreground: hsl(278, 68%, 11%);
+  --color-foreground-muted: hsl(279, 6%, 55%);
+  --color-background: hsl(0, 0%, 96%);
+
+  --color-primary-foreground: hsl(0, 0%, 96%);
+  --color-primary-foreground-muted: hsl(276, 9%, 78%);
+  --color-primary-background: hsl(278, 68%, 11%);
+  --color-border: hsl(270, 3%, 87%);
+  --color-error: hsl(0, 100%, 66%);
 }
