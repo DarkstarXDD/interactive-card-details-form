@@ -18,7 +18,7 @@ export default function TextField({
   const defaultId = useId()
   const inputId = id ?? defaultId
 
-  const errorId = useId()
+  const errorId = `${inputId}-error`
   const isInvalid = errorMessage ? true : false
 
   return (
