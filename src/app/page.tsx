@@ -1,7 +1,7 @@
 import Image from "next/image"
 import cardFront from "../assets/bg-card-front.png"
 import cardBack from "../assets/bg-card-back.png"
-
+import CardDetailsForm from "@/components/CardDetailsForm"
 export default function HomePage() {
   return (
     <main>
@@ -19,8 +19,8 @@ export default function HomePage() {
             className="col-start-1 col-end-6 row-start-5 row-end-12 lg:row-start-1 lg:row-end-7"
           ></Image>
         </div>
-        <div className="grid items-center justify-items-center text-2xl">
-          <p>Form goes here</p>
+        <div className="grid items-center justify-items-center">
+          <CardDetailsForm />
         </div>
       </div>
     </main>
