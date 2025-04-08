@@ -6,8 +6,8 @@ export default function HomePage() {
   return (
     <main>
       <div className="grid w-full lg:grid-cols-[10rem_20rem_1fr] xl:grid-cols-[10rem_20rem_13.75rem_1fr]">
-        <div className="col-start-1 row-start-1 row-end-2 h-60 bg-[url(../assets/bg-main-mobile.png)] bg-cover bg-no-repeat lg:col-start-1 lg:col-end-3 lg:row-start-1 lg:h-dvh lg:bg-[url(../assets/bg-main-desktop.png)]"></div>
-        <div className="col-start-1 row-start-1 row-end-3 m-auto grid max-w-sm px-4 py-8 lg:col-start-1 lg:col-end-3 lg:row-start-1 lg:max-w-md lg:grid-rows-[repeat(13,_minmax(0,_1fr))] lg:p-0 xl:col-start-2 xl:col-end-4 xl:max-w-135">
+        <div className="col-start-1 row-start-1 row-end-2 h-60 bg-[url(../assets/bg-main-mobile.png)] bg-cover bg-no-repeat lg:col-start-1 lg:col-end-3 lg:row-start-1 lg:min-h-dvh lg:bg-[url(../assets/bg-main-desktop.png)]"></div>
+        <div className="col-start-1 row-start-1 row-end-3 m-auto grid max-w-sm px-4 pt-8 lg:col-start-1 lg:col-end-3 lg:row-start-1 lg:max-w-md lg:grid-rows-[repeat(13,_minmax(0,_1fr))] lg:p-0 xl:col-start-2 xl:col-end-4 xl:max-w-135">
           <Image
             src={cardBack}
             alt=""
@@ -19,7 +19,7 @@ export default function HomePage() {
             className="col-start-1 col-end-6 row-start-5 row-end-12 lg:row-start-1 lg:row-end-7"
           ></Image>
         </div>
-        <div className="grid items-center justify-items-center">
+        <div className="grid items-center justify-items-center px-6 py-12">
           <CardDetailsForm />
         </div>
       </div>

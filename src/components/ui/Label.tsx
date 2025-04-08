@@ -9,7 +9,10 @@ export default function Label({
   return (
     <label
       {...props}
-      className={cn("text-sm font-medium tracking-[0.125rem]", className)}
+      className={cn(
+        "text-sm font-medium tracking-[0.125rem] uppercase",
+        className
+      )}
     >
       {children}
     </label>
