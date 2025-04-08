@@ -4,7 +4,7 @@
   --font-space-grotesk: var(--font-space-grotesk);
 
   --color-foreground: hsl(278, 68%, 11%);
-  --color-foreground-muted: hsl(279, 6%, 55%);
+  --color-foreground-muted: hsl(279, 6%, 35%);
   --color-background: hsl(0, 0%, 98%);
 
   --color-primary-foreground: hsl(0, 0%, 98%);

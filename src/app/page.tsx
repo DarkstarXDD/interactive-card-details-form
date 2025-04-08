@@ -2,6 +2,8 @@ import Image from "next/image"
 import cardFront from "../assets/bg-card-front.png"
 import cardBack from "../assets/bg-card-back.png"
 import CardDetailsForm from "@/components/CardDetailsForm"
+import SuccessMessage from "@/components/SuccessMessage"
+
 export default function HomePage() {
   return (
     <main>
@@ -20,7 +22,8 @@ export default function HomePage() {
           ></Image>
         </div>
         <div className="grid items-center justify-items-center px-6 py-12">
-          <CardDetailsForm />
+          {/* <CardDetailsForm /> */}
+          <SuccessMessage />
         </div>
       </div>
     </main>
