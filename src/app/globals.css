@@ -13,4 +13,7 @@
   --color-border: hsl(270, 3%, 80%);
   --color-ring: hsl(270, 3%, 80%);
   --color-error: hsl(0, 50%, 45%);
+
+  --color-gradient-start: hsl(249, 99%, 64%);
+  --color-gradient-end: hsl(278, 94%, 30%);
 }
