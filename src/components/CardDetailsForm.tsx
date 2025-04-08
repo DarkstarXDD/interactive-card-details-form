@@ -1,39 +1,51 @@
+"use client"
+
 import TextField from "@/components/ui/TextField"
 import Button from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
+import { useForm } from "react-hook-form"
+import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export default function CardDetailsForm({ className }: { className?: string }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormType>({ resolver: zodResolver(UserFormSchema) })
+
   return (
-    <form className={cn("grid w-full max-w-sm gap-7", className)}>
+    <form
+      className={cn("grid w-full max-w-sm gap-7", className)}
+      onSubmit={handleSubmit((data) => console.log(data))}
+    >
       <div className="grid gap-5">
         <TextField
+          type="text"
           label="Cardholder Name"
           placeholder="e.g. Jane Appleseed"
-          // errorMessage="Name is required"
+          {...register("cardholderName")}
+          errorMessage={errors.cardholderName?.message}
         />
         <TextField
+          type="number"
           label="Card Number"
           placeholder="e.g. 1234 5678 9123 0000"
-          // errorMessage="Name is required"
+          {...register("cardNumber", { valueAsNumber: true })}
+          errorMessage={errors.cardNumber?.message}
         />
         <div className="flex items-start gap-5">
           <div className="flex flex-3/5 shrink-0 items-start gap-2">
-            <TextField
-              label="Exp. Date"
-              placeholder="MM"
-              // errorMessage="Name is required"
-            />
-            <TextField
-              label="(MM / YY)"
-              placeholder="YY"
-              // errorMessage="Name is required"
-            />
+            <TextField label="Exp. Date" placeholder="MM" />
+            <TextField label="(MM / YY)" placeholder="YY" />
           </div>
 
           <TextField
+            type="number"
             label="CVC"
             placeholder="e.g. 123"
-            // errorMessage="Name is required"
+            {...register("cvc", { valueAsNumber: true })}
+            errorMessage={errors.cvc?.message}
           />
         </div>
       </div>
