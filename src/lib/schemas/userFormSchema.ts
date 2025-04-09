@@ -7,10 +7,10 @@ export const UserFormSchema = z.object({
       required_error: "Can't be blank",
       invalid_type_error: "Wrong format, numbers only",
     })
-    .nonnegative("Non-negative number only"),
+    .nonnegative("Non-negative numbers only"),
   cvc: z
-    .number({ message: "Wrong format, number only" })
-    .nonnegative("Non-negative number only"),
+    .number({ message: "Wrong format, numbers only" })
+    .nonnegative("Non-negative numbers only"),
 })
 
 export type UserFormType = z.infer<typeof UserFormSchema>
