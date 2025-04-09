@@ -18,18 +18,18 @@ export default function CardDetailsForm({ className }: { className?: string }) {
     <form
       className={cn("grid w-full max-w-sm gap-7", className)}
       onSubmit={handleSubmit((data) => console.log(data))}
+      noValidate
     >
       <div className="grid gap-5">
         <TextField
-          type="text"
           label="Cardholder Name"
           placeholder="e.g. Jane Appleseed"
           {...register("cardholderName")}
           errorMessage={errors.cardholderName?.message}
         />
         <TextField
-          type="number"
           label="Card Number"
+          min={0}
           placeholder="e.g. 1234 5678 9123 0000"
           {...register("cardNumber", { valueAsNumber: true })}
           errorMessage={errors.cardNumber?.message}
@@ -41,8 +41,9 @@ export default function CardDetailsForm({ className }: { className?: string }) {
           </div>
 
           <TextField
-            type="number"
             label="CVC"
+            min={0}
+            maxLength={4}
             placeholder="e.g. 123"
             {...register("cvc", { valueAsNumber: true })}
             errorMessage={errors.cvc?.message}
