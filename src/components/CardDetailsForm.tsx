@@ -1,47 +1,71 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import RACTextField from "@/components/ui/RACTextField"
+import RACNumberField from "@/components/ui/RACNumberField"
 import TextField from "@/components/ui/TextField"
 import Button from "@/components/ui/Button"
-import RACTextField from "@/components/ui/RACTextField"
-import { useForm } from "react-hook-form"
+
 import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm, Controller } from "react-hook-form"
 
 export default function CardDetailsForm({ className }: { className?: string }) {
   const {
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserFormType>({ resolver: zodResolver(UserFormSchema) })
+    control,
+  } = useForm<UserFormType>({
+    resolver: zodResolver(UserFormSchema),
+    defaultValues: {
+      cardholderName: "",
+      // cardNumber: 0,
+      // cvc: 0,
+    },
+  })
 
   return (
     <form
       className={cn("grid w-full max-w-sm gap-7", className)}
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit(
+        (data) => console.log(data),
+        (errors) => console.log(errors)
+      )}
       noValidate
     >
       <div className="grid gap-5">
-        <TextField
-          label="Cardholder Name"
-          placeholder="e.g. Jane Appleseed"
-          {...register("cardholderName")}
-          errorMessage={errors.cardholderName?.message}
+        <Controller
+          name="cardholderName"
+          control={control}
+          render={({ field, fieldState: { invalid } }) => {
+            return (
+              <RACTextField
+                {...field}
+                label="Cardholder Name"
+                type="text"
+                placeholder="e.g. Jane Appleseed"
+                errorMessage={errors.cardholderName?.message}
+                isInvalid={invalid}
+              />
+            )
+          }}
         />
 
-        <RACTextField
-          label="Cardholder Name"
-          type="text"
-          placeholder="e.g. Jane Appleseed"
-          errorMessage={errors.cardholderName?.message}
-        />
-
-        <TextField
-          label="Card Number"
-          min={0}
-          placeholder="e.g. 1234 5678 9123 0000"
-          {...register("cardNumber", { valueAsNumber: true })}
-          errorMessage={errors.cardNumber?.message}
+        <Controller
+          name="cardNumber"
+          control={control}
+          render={({ field, fieldState: { invalid } }) => {
+            return (
+              <RACNumberField
+                {...field}
+                label="Card Number"
+                placeholder="e.g. 1234 5678 9123 0000"
+                minValue={0}
+                errorMessage={errors.cardNumber?.message}
+                isInvalid={invalid}
+              />
+            )
+          }}
         />
 
         <div className="flex items-start gap-5">
@@ -50,13 +74,21 @@ export default function CardDetailsForm({ className }: { className?: string }) {
             <TextField label="(MM / YY)" placeholder="YY" />
           </div>
 
-          <TextField
-            label="CVC"
-            min={0}
-            maxLength={4}
-            placeholder="e.g. 123"
-            {...register("cvc", { valueAsNumber: true })}
-            errorMessage={errors.cvc?.message}
+          <Controller
+            name="cvc"
+            control={control}
+            render={({ field, fieldState: { invalid } }) => {
+              return (
+                <RACNumberField
+                  {...field}
+                  label="CVC"
+                  placeholder="e.g. 123"
+                  minValue={0}
+                  errorMessage={errors.cvc?.message}
+                  isInvalid={invalid}
+                />
+              )
+            }}
           />
         </div>
       </div>
