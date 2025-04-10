@@ -1,8 +1,9 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import TextField from "@/components/ui/TextField"
 import Button from "@/components/ui/Button"
-import { cn } from "@/lib/utils"
+import RACTextField from "@/components/ui/RACTextField"
 import { useForm } from "react-hook-form"
 import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -27,6 +28,14 @@ export default function CardDetailsForm({ className }: { className?: string }) {
           {...register("cardholderName")}
           errorMessage={errors.cardholderName?.message}
         />
+
+        <RACTextField
+          label="Cardholder Name"
+          type="text"
+          placeholder="e.g. Jane Appleseed"
+          errorMessage={errors.cardholderName?.message}
+        />
+
         <TextField
           label="Card Number"
           min={0}
@@ -34,6 +43,7 @@ export default function CardDetailsForm({ className }: { className?: string }) {
           {...register("cardNumber", { valueAsNumber: true })}
           errorMessage={errors.cardNumber?.message}
         />
+
         <div className="flex items-start gap-5">
           <div className="flex flex-3/5 shrink-0 items-start gap-2">
             <TextField label="Exp. Date" placeholder="MM" />
