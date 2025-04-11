@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import RACLabel from "@/components/ui/RACLabel"
 import RACInput from "@/components/ui/RACInput"
@@ -26,7 +28,7 @@ export default function RACNumberField({
       formatOptions={{ useGrouping: "false" }}
     >
       <RACLabel>{label}</RACLabel>
-      <RACInput ref={ref} placeholder={placeholder} />
+      <RACInput ref={ref} placeholder={placeholder} inputMode="numeric" />
       <RACFieldError>{errorMessage}</RACFieldError>
     </NumberField>
   )
