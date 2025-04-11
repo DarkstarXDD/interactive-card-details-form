@@ -11,7 +11,6 @@ export default function MainPage() {
   const [isSubmitSucess, setIsSubmitSucess] = useState(true)
 
   function showForm() {
-    console.log("Triggered")
     setIsSubmitSucess(false)
   }
 
@@ -38,7 +37,7 @@ export default function MainPage() {
         {isSubmitSucess ? (
           <SuccessMessage onContinue={showForm} />
         ) : (
-          <CardDetailsForm onSubmit={showSuccessMessage} />
+          <CardDetailsForm onSuccess={showSuccessMessage} />
         )}
       </div>
     </div>

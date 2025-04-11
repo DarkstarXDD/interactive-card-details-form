@@ -4,23 +4,26 @@ import { cn } from "@/lib/utils"
 import RACTextField from "@/components/ui/RACTextField"
 import RACNumberField from "@/components/ui/RACNumberField"
 import RACDateField from "@/components/ui/RACDateField"
+import FieldError from "@/components/ui/FieldError"
 import Button from "@/components/ui/Button"
 
 import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
+import { addCard } from "@/actions/actions"
 
 export default function CardDetailsForm({
-  onSubmit,
+  onSuccess,
   className,
 }: {
-  onSubmit: () => void
+  onSuccess: () => void
   className?: string
 }) {
   const {
     handleSubmit,
     formState: { errors },
     control,
+    setError,
   } = useForm<UserFormType>({
     resolver: zodResolver(UserFormSchema),
   })
@@ -30,9 +33,16 @@ export default function CardDetailsForm({
       noValidate
       className={cn("grid w-full max-w-sm gap-7", className)}
       onSubmit={handleSubmit(
-        (data) => {
+        async (data) => {
           console.log(data)
-          onSubmit()
+
+          const serverResponse = await addCard(data)
+          if (serverResponse) {
+            setError("root", serverResponse)
+            console.log(serverResponse)
+          } else {
+            onSuccess()
+          }
         },
         (errors) => console.log(errors)
       )}
@@ -130,6 +140,7 @@ export default function CardDetailsForm({
             }}
           />
         </div>
+        {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
       </div>
 
       <Button>Confirm</Button>
