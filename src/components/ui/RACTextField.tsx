@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import RACLabel from "@/components/ui/RACLabel"
 import RACInput from "@/components/ui/RACInput"

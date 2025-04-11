@@ -76,7 +76,27 @@ export default function CardDetailsForm({ className }: { className?: string }) {
         />
 
         <div className="flex items-start gap-5">
-          <RACDateField label="Exp. Date (MM/YY)" className="flex-3/5" />
+          <Controller
+            name="expirationDate"
+            control={control}
+            render={({
+              field: { name, onChange, onBlur, ref },
+              fieldState: { invalid },
+            }) => {
+              return (
+                <RACDateField
+                  className="flex-3/5"
+                  name={name}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  ref={ref}
+                  label="Exp. Date (MM/YY)"
+                  errorMessage={errors.expirationDate?.month?.message}
+                  isInvalid={invalid}
+                />
+              )
+            }}
+          />
 
           <Controller
             name="cvc"
