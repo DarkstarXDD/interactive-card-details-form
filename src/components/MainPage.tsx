@@ -8,7 +8,7 @@ import SuccessMessage from "@/components/SuccessMessage"
 import { useState } from "react"
 
 export default function MainPage() {
-  const [isSubmitSucess, setIsSubmitSucess] = useState(true)
+  const [isSubmitSucess, setIsSubmitSucess] = useState(false)
 
   function showForm() {
     setIsSubmitSucess(false)

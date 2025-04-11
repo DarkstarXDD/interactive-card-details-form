@@ -12,7 +12,7 @@ export default function Button({
     <button
       {...props}
       className={cn(
-        "text-primary-foreground ring-offset-background ring-primary-background hover:bg-primary-background/90 bg-primary-background w-full cursor-pointer rounded-lg p-4 text-base font-medium ring-offset-2 transition-colors outline-none focus-visible:ring-2",
+        "text-primary-foreground ring-offset-background ring-primary-background hover:bg-primary-background/90 bg-primary-background w-full cursor-pointer rounded-lg p-4 text-base font-medium ring-offset-2 transition-colors outline-none focus-visible:ring-2 disabled:pointer-events-none",
         className
       )}
     >

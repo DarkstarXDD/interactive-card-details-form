@@ -1,10 +1,12 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 import RACTextField from "@/components/ui/RACTextField"
 import RACNumberField from "@/components/ui/RACNumberField"
 import RACDateField from "@/components/ui/RACDateField"
 import FieldError from "@/components/ui/FieldError"
+import LoadingCircleSpinner from "@/components/LoadingCircleSpinner"
 import Button from "@/components/ui/Button"
 
 import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
@@ -19,6 +21,7 @@ export default function CardDetailsForm({
   onSuccess: () => void
   className?: string
 }) {
+  const [status, setStatus] = useState<"idle" | "loading">("idle")
   const {
     handleSubmit,
     formState: { errors },
@@ -32,20 +35,17 @@ export default function CardDetailsForm({
     <form
       noValidate
       className={cn("grid w-full max-w-sm gap-7", className)}
-      onSubmit={handleSubmit(
-        async (data) => {
-          console.log(data)
+      onSubmit={handleSubmit(async (data) => {
+        setStatus("loading")
 
-          const serverResponse = await addCard(data)
-          if (serverResponse) {
-            setError("root", serverResponse)
-            console.log(serverResponse)
-          } else {
-            onSuccess()
-          }
-        },
-        (errors) => console.log(errors)
-      )}
+        const serverResponse = await addCard(data)
+
+        if (serverResponse) {
+          setError("root", serverResponse)
+        } else {
+          onSuccess()
+        }
+      })}
     >
       <div className="grid gap-5">
         <Controller
@@ -143,7 +143,16 @@ export default function CardDetailsForm({
         {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
       </div>
 
-      <Button>Confirm</Button>
+      <Button disabled={status === "loading"}>
+        {status === "loading" ? (
+          <div className="flex items-center justify-center gap-3">
+            <span>Submitting</span>
+            <LoadingCircleSpinner />
+          </div>
+        ) : (
+          "Submit"
+        )}
+      </Button>
     </form>
   )
 }
