@@ -1,7 +1,9 @@
 import { z } from "zod"
 
 export const UserFormSchema = z.object({
-  cardholderName: z.string().min(1, "Can't be blank"),
+  cardholderName: z
+    .string({ required_error: "Can't be blank" })
+    .min(1, "Can't be blank"),
   cardNumber: z
     .number({
       required_error: "Can't be blank",
