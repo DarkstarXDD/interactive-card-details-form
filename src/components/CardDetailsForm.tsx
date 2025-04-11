@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils"
 import RACTextField from "@/components/ui/RACTextField"
 import RACNumberField from "@/components/ui/RACNumberField"
-import TextField from "@/components/ui/TextField"
+import RACDateField from "@/components/ui/RACDateField"
 import Button from "@/components/ui/Button"
 
 import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
@@ -17,11 +17,6 @@ export default function CardDetailsForm({ className }: { className?: string }) {
     control,
   } = useForm<UserFormType>({
     resolver: zodResolver(UserFormSchema),
-    defaultValues: {
-      cardholderName: "",
-      // cardNumber: 0,
-      // cvc: 0,
-    },
   })
 
   return (
@@ -37,10 +32,16 @@ export default function CardDetailsForm({ className }: { className?: string }) {
         <Controller
           name="cardholderName"
           control={control}
-          render={({ field, fieldState: { invalid } }) => {
+          render={({
+            field: { name, onChange, onBlur, ref },
+            fieldState: { invalid },
+          }) => {
             return (
               <RACTextField
-                {...field}
+                name={name}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
                 label="Cardholder Name"
                 type="text"
                 placeholder="e.g. Jane Appleseed"
@@ -54,10 +55,16 @@ export default function CardDetailsForm({ className }: { className?: string }) {
         <Controller
           name="cardNumber"
           control={control}
-          render={({ field, fieldState: { invalid } }) => {
+          render={({
+            field: { name, onChange, onBlur, ref },
+            fieldState: { invalid },
+          }) => {
             return (
               <RACNumberField
-                {...field}
+                name={name}
+                onChange={onChange}
+                onBlur={onBlur}
+                ref={ref}
                 label="Card Number"
                 placeholder="e.g. 1234 5678 9123 0000"
                 minValue={0}
@@ -69,18 +76,21 @@ export default function CardDetailsForm({ className }: { className?: string }) {
         />
 
         <div className="flex items-start gap-5">
-          <div className="flex flex-3/5 shrink-0 items-start gap-2">
-            <TextField label="Exp. Date" placeholder="MM" />
-            <TextField label="(MM / YY)" placeholder="YY" />
-          </div>
+          <RACDateField label="Exp. Date (MM/YY)" className="flex-3/5" />
 
           <Controller
             name="cvc"
             control={control}
-            render={({ field, fieldState: { invalid } }) => {
+            render={({
+              field: { name, onChange, onBlur, ref },
+              fieldState: { invalid },
+            }) => {
               return (
                 <RACNumberField
-                  {...field}
+                  name={name}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  ref={ref}
                   label="CVC"
                   placeholder="e.g. 123"
                   minValue={0}
