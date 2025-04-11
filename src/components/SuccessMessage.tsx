@@ -1,7 +1,11 @@
 import Button from "@/components/ui/Button"
 import AnimatedCheckmark from "@/components/AnimatedCheckmark"
 
-export default function SuccessMessage() {
+export default function SuccessMessage({
+  onContinue,
+}: {
+  onContinue: () => void
+}) {
   return (
     <div className="grid w-full max-w-sm justify-items-center gap-9">
       <AnimatedCheckmark />
@@ -13,7 +17,7 @@ export default function SuccessMessage() {
           </p>
         </div>
 
-        <Button>Continue</Button>
+        <Button onClick={onContinue}>Continue</Button>
       </div>
     </div>
   )

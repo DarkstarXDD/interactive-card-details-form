@@ -10,7 +10,13 @@ import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 
-export default function CardDetailsForm({ className }: { className?: string }) {
+export default function CardDetailsForm({
+  onSubmit,
+  className,
+}: {
+  onSubmit: () => void
+  className?: string
+}) {
   const {
     handleSubmit,
     formState: { errors },
@@ -21,12 +27,15 @@ export default function CardDetailsForm({ className }: { className?: string }) {
 
   return (
     <form
+      noValidate
       className={cn("grid w-full max-w-sm gap-7", className)}
       onSubmit={handleSubmit(
-        (data) => console.log(data),
+        (data) => {
+          console.log(data)
+          onSubmit()
+        },
         (errors) => console.log(errors)
       )}
-      noValidate
     >
       <div className="grid gap-5">
         <Controller
