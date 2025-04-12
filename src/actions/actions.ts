@@ -1,10 +1,9 @@
 "use server"
 
 import { UserFormSchema, UserFormType } from "@/lib/schemas/userFormSchema"
+import prisma from "@/lib/prisma"
 
 export async function addCard(data: UserFormType) {
-  console.log(data)
-
   // await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const validatedData = UserFormSchema.safeParse(data)
@@ -14,4 +13,14 @@ export async function addCard(data: UserFormType) {
       message: "Server error. Unable to add card. Please try again.",
     }
   }
+
+  await prisma.cardDetails.create({
+    data: {
+      cardholderName: data.cardholderName,
+      cardNumber: data.cardNumber,
+      expirationMonth: data.expirationDate.month,
+      expirationYear: data.expirationDate.year,
+      CVC: data.cvc,
+    },
+  })
 }
