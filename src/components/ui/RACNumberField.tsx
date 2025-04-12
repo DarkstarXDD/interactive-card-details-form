@@ -6,7 +6,7 @@ import RACInput from "@/components/ui/RACInput"
 import RACFieldError from "@/components/ui/RACFieldError"
 import { type NumberFieldProps, NumberField } from "react-aria-components"
 
-type RACTextFieldProps = NumberFieldProps & {
+type RACNumberFieldProps = NumberFieldProps & {
   label: string
   placeholder?: string
   ref?: React.Ref<HTMLInputElement>
@@ -20,7 +20,7 @@ export default function RACNumberField({
   ref,
   className,
   ...props
-}: RACTextFieldProps) {
+}: RACNumberFieldProps) {
   return (
     <NumberField
       {...props}
