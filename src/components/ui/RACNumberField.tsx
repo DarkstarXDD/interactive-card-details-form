@@ -25,7 +25,7 @@ export default function RACNumberField({
     <NumberField
       {...props}
       className={cn("grid gap-2", className)}
-      formatOptions={{ useGrouping: "false" }}
+      formatOptions={{ useGrouping: false }}
     >
       <RACLabel>{label}</RACLabel>
       <RACInput ref={ref} placeholder={placeholder} inputMode="numeric" />
