@@ -10,8 +10,8 @@ datasource db {
 model CardDetails {
   id              String @id @default(cuid())
   cardholderName  String
-  cardNumber      BigInt
+  cardNumber      String
+  cvc             String
   expirationMonth Int
   expirationYear  Int
-  CVC             Int
 }

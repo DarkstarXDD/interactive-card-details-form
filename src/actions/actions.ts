@@ -1,12 +1,12 @@
 "use server"
 
-import { UserFormSchema, UserFormType } from "@/lib/schemas/userFormSchema"
+import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import prisma from "@/lib/prisma"
 
-export async function addCard(data: UserFormType) {
+export async function addCard(data: CardFormType) {
   // await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  const validatedData = UserFormSchema.safeParse(data)
+  const validatedData = CardFormSchema.safeParse(data)
   if (!validatedData.success) {
     return {
       type: "server_error",
@@ -20,7 +20,7 @@ export async function addCard(data: UserFormType) {
       cardNumber: data.cardNumber,
       expirationMonth: data.expirationDate.month,
       expirationYear: data.expirationDate.year,
-      CVC: data.cvc,
+      cvc: data.cvc,
     },
   })
 }
