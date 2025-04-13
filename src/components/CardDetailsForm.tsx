@@ -2,17 +2,17 @@
 
 import { cn } from "@/lib/utils"
 import { useState } from "react"
-import RACTextField from "@/components/ui/RACTextField"
-import RACNumberField from "@/components/ui/RACNumberField"
-import RACDateField from "@/components/ui/RACDateField"
+import TextField from "@/components/ui/TextField"
 import FieldError from "@/components/ui/FieldError"
-import LoadingCircleSpinner from "@/components/LoadingCircleSpinner"
-import Button from "@/components/ui/Button"
+import RACDateField from "@/components/ui/RACDateField"
+import SubmitButton from "@/components/SubmitButton"
 
-import { UserFormSchema, type UserFormType } from "@/lib/schemas/userFormSchema"
+import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { addCard } from "@/actions/actions"
+
+export type SubmitButtonStatus = "idle" | "loading"
 
 export default function CardDetailsForm({
   onSuccess,
@@ -21,138 +21,74 @@ export default function CardDetailsForm({
   onSuccess: () => void
   className?: string
 }) {
-  const [status, setStatus] = useState<"idle" | "loading">("idle")
+  const [status, setStatus] = useState<SubmitButtonStatus>("idle")
+
   const {
     handleSubmit,
+    register,
     formState: { errors },
     control,
     setError,
-  } = useForm<UserFormType>({
-    resolver: zodResolver(UserFormSchema),
+  } = useForm<CardFormType>({
+    resolver: zodResolver(CardFormSchema),
   })
 
   return (
     <form
       noValidate
       className={cn("grid w-full max-w-sm gap-7", className)}
-      onSubmit={handleSubmit(async (data) => {
-        setStatus("loading")
+      onSubmit={handleSubmit(
+        async (data) => {
+          setStatus("loading")
 
-        const serverResponse = await addCard(data)
+          const serverResponse = await addCard(data)
 
-        if (serverResponse) {
-          setError("root", serverResponse)
-        } else {
-          onSuccess()
-        }
-      })}
+          if (serverResponse) {
+            setError("root", serverResponse)
+          } else {
+            onSuccess()
+          }
+        },
+        (errors) => console.log(errors)
+      )}
     >
       <div className="grid gap-5">
-        <Controller
-          name="cardholderName"
-          control={control}
-          render={({
-            field: { name, onChange, onBlur, ref },
-            fieldState: { invalid },
-          }) => {
-            return (
-              <RACTextField
-                name={name}
-                onChange={onChange}
-                onBlur={onBlur}
-                ref={ref}
-                label="Cardholder Name"
-                type="text"
-                placeholder="e.g. Jane Appleseed"
-                errorMessage={errors.cardholderName?.message}
-                isInvalid={invalid}
-              />
-            )
-          }}
+        <TextField
+          label="Cardholder Name"
+          placeholder="e.g. Jane Appleseed"
+          {...register("cardholderName")}
+          errorMessage={errors.cardholderName?.message}
         />
 
-        <Controller
-          name="cardNumber"
-          control={control}
-          render={({
-            field: { name, onChange, onBlur, ref },
-            fieldState: { invalid },
-          }) => {
-            return (
-              <RACNumberField
-                name={name}
-                onChange={onChange}
-                onBlur={onBlur}
-                ref={ref}
-                label="Card Number"
-                placeholder="e.g. 1234 5678 9123 0000"
-                minValue={0}
-                errorMessage={errors.cardNumber?.message}
-                isInvalid={invalid}
-              />
-            )
-          }}
+        <TextField
+          label="Card Number"
+          placeholder="e.g. 1234 5678 9123 0000"
+          {...register("cardNumber")}
+          errorMessage={errors.cardNumber?.message}
         />
 
         <div className="flex items-start gap-5">
-          <Controller
+          <RACDateField
+            label="Exp. Date (MM/YY)"
             name="expirationDate"
             control={control}
-            render={({
-              field: { name, onChange, onBlur, ref },
-              fieldState: { invalid },
-            }) => {
-              return (
-                <RACDateField
-                  className="flex-3/5"
-                  name={name}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  ref={ref}
-                  label="Exp. Date (MM/YY)"
-                  errorMessage={errors.expirationDate?.month?.message}
-                  isInvalid={invalid}
-                />
-              )
-            }}
+            errorMessage={
+              errors.expirationDate?.message ||
+              errors.expirationDate?.month?.message
+            }
           />
 
-          <Controller
-            name="cvc"
-            control={control}
-            render={({
-              field: { name, onChange, onBlur, ref },
-              fieldState: { invalid },
-            }) => {
-              return (
-                <RACNumberField
-                  name={name}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  ref={ref}
-                  label="CVC"
-                  placeholder="e.g. 123"
-                  minValue={0}
-                  errorMessage={errors.cvc?.message}
-                  isInvalid={invalid}
-                />
-              )
-            }}
+          <TextField
+            label="CVC"
+            placeholder="e.g. 123"
+            {...register("cvc")}
+            errorMessage={errors.cvc?.message}
           />
         </div>
         {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
       </div>
 
-      <Button disabled={status === "loading"}>
-        {status === "loading" ? (
-          <div className="flex items-center justify-center gap-3">
-            <span>Submitting</span>
-            <LoadingCircleSpinner />
-          </div>
-        ) : (
-          "Submit"
-        )}
-      </Button>
+      <SubmitButton status={status} />
     </form>
   )
 }
