@@ -3,6 +3,7 @@ import { z } from "zod"
 export const CardFormSchema = z.object({
   cardholderName: z
     .string({ required_error: "Can't be blank" })
+    .trim()
     .min(1, "Can't be blank"),
 
   cardNumber: z
