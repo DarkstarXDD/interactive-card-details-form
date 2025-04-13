@@ -9,7 +9,7 @@ import SubmitButton from "@/components/SubmitButton"
 
 import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { addCard } from "@/actions/actions"
 
 export type SubmitButtonStatus = "idle" | "loading"
@@ -68,26 +68,14 @@ export default function CardDetailsForm({
         />
 
         <div className="flex items-start gap-5">
-          <Controller
+          <RACDateField
+            label="Exp. Date (MM/YY)"
             name="expirationDate"
             control={control}
-            render={({
-              field: { name, onChange, onBlur, ref },
-              fieldState: { invalid },
-            }) => {
-              return (
-                <RACDateField
-                  className="flex-3/5"
-                  name={name}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  ref={ref}
-                  label="Exp. Date (MM/YY)"
-                  errorMessage={errors.expirationDate?.month?.message}
-                  isInvalid={invalid}
-                />
-              )
-            }}
+            errorMessage={
+              errors.expirationDate?.message ||
+              errors.expirationDate?.month?.message
+            }
           />
 
           <TextField
