@@ -1,35 +1,37 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { DateField, DateInput, DateSegment } from "react-aria-components"
 import RACLabel from "@/components/ui/RACLabel"
 import RACFieldError from "@/components/ui/RACFieldError"
-import { DateField, DateInput, DateSegment } from "react-aria-components"
-import type { DateValue, DateFieldProps } from "react-aria-components"
+import { useController, type UseControllerProps } from "react-hook-form"
+import type { CardFormType } from "@/lib/schemas/cardFormSchema"
 
-interface RACDateField<T extends DateValue>
-  extends Omit<DateFieldProps<T>, "onChange"> {
+type RACDateFieldProps = UseControllerProps<CardFormType> & {
   label: string
-  ref: React.Ref<HTMLDivElement>
   errorMessage?: string
-  onChange?: (value: {
-    month: number | undefined
-    year: number | undefined
-  }) => void
+  className?: string
 }
 
-export default function RACDateField<T extends DateValue>({
+export default function RACDateField({
   label,
-  ref,
+  name,
+  control,
   errorMessage,
   className,
-  onChange,
-  ...props
-}: RACDateField<T>) {
+}: RACDateFieldProps) {
+  const {
+    field: { name: fieldName, onChange, onBlur, ref },
+    fieldState: { invalid },
+  } = useController({ name, control })
+
   return (
     <DateField
-      {...props}
-      granularity={"month" as unknown as "day"}
       className={cn("grid gap-2", className)}
+      name={fieldName}
+      onBlur={onBlur}
+      isInvalid={invalid}
+      granularity={"month" as unknown as "day"}
       onChange={(date) => {
         const expDate = {
           month: date?.month,

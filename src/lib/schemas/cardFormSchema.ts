@@ -21,20 +21,23 @@ export const CardFormSchema = z.object({
       message: "Non-negative numbers only",
     }),
 
-  expirationDate: z.object({
-    month: z
-      .number({
-        required_error: "Can't be blank",
-        invalid_type_error: "Wrong format, numbers only",
-      })
-      .nonnegative("Non-negative numbers only"),
-    year: z
-      .number({
-        required_error: "Can't be blank",
-        invalid_type_error: "Wrong format, numbers only",
-      })
-      .nonnegative("Non-negative numbers only"),
-  }),
+  expirationDate: z.object(
+    {
+      month: z
+        .number({
+          required_error: "Can't be blank",
+          invalid_type_error: "Wrong format, numbers only",
+        })
+        .nonnegative("Non-negative numbers only"),
+      year: z
+        .number({
+          required_error: "Can't be blank",
+          invalid_type_error: "Wrong format, numbers only",
+        })
+        .nonnegative("Non-negative numbers only"),
+    },
+    { required_error: "Can't be blank" }
+  ),
 })
 
 export type CardFormType = z.infer<typeof CardFormSchema>
