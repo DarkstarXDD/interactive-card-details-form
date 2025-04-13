@@ -14,13 +14,20 @@ export async function addCard(data: CardFormType) {
     }
   }
 
-  await prisma.cardDetails.create({
-    data: {
-      cardholderName: data.cardholderName,
-      cardNumber: data.cardNumber,
-      expirationMonth: data.expirationDate.month,
-      expirationYear: data.expirationDate.year,
-      cvc: data.cvc,
-    },
-  })
+  try {
+    await prisma.cardDetails.create({
+      data: {
+        cardholderName: data.cardholderName,
+        cardNumber: data.cardNumber,
+        expirationMonth: data.expirationDate.month,
+        expirationYear: data.expirationDate.year,
+        cvc: data.cvc,
+      },
+    })
+  } catch {
+    return {
+      type: "server_error",
+      message: "Server error. Unable to add card. Please try again.",
+    }
+  }
 }

@@ -37,20 +37,18 @@ export default function CardDetailsForm({
     <form
       noValidate
       className={cn("grid w-full max-w-sm gap-7", className)}
-      onSubmit={handleSubmit(
-        async (data) => {
-          setStatus("loading")
+      onSubmit={handleSubmit(async (data) => {
+        setStatus("loading")
 
-          const serverResponse = await addCard(data)
+        const serverResponse = await addCard(data)
 
-          if (serverResponse) {
-            setError("root", serverResponse)
-          } else {
-            onSuccess()
-          }
-        },
-        (errors) => console.log(errors)
-      )}
+        if (serverResponse) {
+          setError("root", serverResponse)
+          setStatus("idle")
+        } else {
+          onSuccess()
+        }
+      })}
     >
       <div className="grid gap-5">
         <TextField
