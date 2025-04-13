@@ -3,10 +3,10 @@
 import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import prisma from "@/lib/prisma"
 
-export async function addCard(data: CardFormType) {
+export async function addCard(cardData: CardFormType) {
   // await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  const validatedData = CardFormSchema.safeParse(data)
+  const validatedData = CardFormSchema.safeParse(cardData)
   if (!validatedData.success) {
     return {
       type: "server_error",
@@ -14,14 +14,27 @@ export async function addCard(data: CardFormType) {
     }
   }
 
+  const doCardExist =
+    (await prisma.cardDetails.count({
+      where: { cardNumber: cardData.cardNumber },
+    })) > 0
+
+  if (doCardExist) {
+    return {
+      type: "server_error",
+      message:
+        "This card number has already been added. Please add a different card.",
+    }
+  }
+
   try {
     await prisma.cardDetails.create({
       data: {
-        cardholderName: data.cardholderName,
-        cardNumber: data.cardNumber,
-        expirationMonth: data.expirationDate.month,
-        expirationYear: data.expirationDate.year,
-        cvc: data.cvc,
+        cardholderName: cardData.cardholderName,
+        cardNumber: cardData.cardNumber,
+        expirationMonth: cardData.expirationDate.month,
+        expirationYear: cardData.expirationDate.year,
+        cvc: cardData.cvc,
       },
     })
   } catch {
