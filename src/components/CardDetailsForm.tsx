@@ -5,13 +5,14 @@ import { useState } from "react"
 import TextField from "@/components/ui/TextField"
 import FieldError from "@/components/ui/FieldError"
 import RACDateField from "@/components/ui/RACDateField"
-import LoadingCircleSpinner from "@/components/LoadingCircleSpinner"
-import Button from "@/components/ui/Button"
+import SubmitButton from "@/components/SubmitButton"
 
 import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 import { addCard } from "@/actions/actions"
+
+export type SubmitButtonStatus = "idle" | "loading"
 
 export default function CardDetailsForm({
   onSuccess,
@@ -20,7 +21,8 @@ export default function CardDetailsForm({
   onSuccess: () => void
   className?: string
 }) {
-  const [status, setStatus] = useState<"idle" | "loading">("idle")
+  const [status, setStatus] = useState<SubmitButtonStatus>("idle")
+
   const {
     handleSubmit,
     register,
@@ -98,16 +100,7 @@ export default function CardDetailsForm({
         {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
       </div>
 
-      <Button disabled={status === "loading"}>
-        {status === "loading" ? (
-          <div className="flex items-center justify-center gap-3">
-            <span>Submitting</span>
-            <LoadingCircleSpinner />
-          </div>
-        ) : (
-          "Submit"
-        )}
-      </Button>
+      <SubmitButton status={status} />
     </form>
   )
 }
