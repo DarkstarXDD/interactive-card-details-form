@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-xs: 24rem;
+
   --font-space-grotesk: var(--font-space-grotesk);
 
   --color-foreground: hsl(278, 68%, 11%);
@@ -16,4 +18,8 @@
 
   --color-gradient-start: hsl(249, 99%, 64%);
   --color-gradient-end: hsl(278, 94%, 30%);
+
+  --color-card-bg: hsl(230, 9%, 87%);
+  --color-card-black: hsl(0, 0%, 18%);
+  --color-card-grey: hsl(212, 12%, 71%);
 }
