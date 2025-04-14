@@ -8,17 +8,21 @@ import RACDateField from "@/components/ui/RACDateField"
 import SubmitButton from "@/components/SubmitButton"
 
 import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
+import { FormValuesType } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { addCard } from "@/actions/actions"
+import { useEffect } from "react"
 
 export type SubmitButtonStatus = "idle" | "loading"
 
 export default function CardDetailsForm({
   onSuccess,
+  onUpdate,
   className,
 }: {
   onSuccess: () => void
+  onUpdate: (newValues: FormValuesType) => void
   className?: string
 }) {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle")
@@ -32,6 +36,12 @@ export default function CardDetailsForm({
   } = useForm<CardFormType>({
     resolver: zodResolver(CardFormSchema),
   })
+
+  const newFormValues = useWatch({ control })
+
+  useEffect(() => {
+    onUpdate(newFormValues)
+  }, [newFormValues, onUpdate])
 
   return (
     <form
