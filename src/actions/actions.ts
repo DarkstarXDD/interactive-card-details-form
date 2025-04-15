@@ -37,10 +37,21 @@ export async function addCard(cardData: CardFormType) {
         cvc: cardData.cvc,
       },
     })
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error({
+        message: error.message,
+        stack: error.stack,
+        // @ts-expect-error: digest may exist on some Next.js error objects
+        digest: error.digest,
+      })
+    } else {
+      console.error("Unknown error:", error)
+    }
+
     return {
       type: "server_error",
-      message: { error },
+      message: "Some error",
     }
   }
 }
