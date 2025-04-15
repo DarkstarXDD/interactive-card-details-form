@@ -14,20 +14,20 @@ export async function addCard(cardData: CardFormType) {
     }
   }
 
-  const doCardExist =
-    (await prisma.cardDetails.count({
-      where: { cardNumber: cardData.cardNumber },
-    })) > 0
-
-  if (doCardExist) {
-    return {
-      type: "server_error",
-      message:
-        "This card number has already been added. Please add a different card.",
-    }
-  }
-
   try {
+    const doCardExist =
+      (await prisma.cardDetails.count({
+        where: { cardNumber: cardData.cardNumber },
+      })) > 0
+
+    if (doCardExist) {
+      return {
+        type: "server_error",
+        message:
+          "This card number has already been added. Please add a different card.",
+      }
+    }
+
     await prisma.cardDetails.create({
       data: {
         cardholderName: cardData.cardholderName,
@@ -37,7 +37,8 @@ export async function addCard(cardData: CardFormType) {
         cvc: cardData.cvc,
       },
     })
-  } catch {
+  } catch (error) {
+    console.log(error)
     return {
       type: "server_error",
       message: "Server error. Unable to add card. Please try again.",
