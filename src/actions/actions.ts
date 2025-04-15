@@ -38,10 +38,9 @@ export async function addCard(cardData: CardFormType) {
       },
     })
   } catch (error) {
-    console.log(error)
     return {
       type: "server_error",
-      message: "Server error. Unable to add card. Please try again.",
+      message: { error },
     }
   }
 }
