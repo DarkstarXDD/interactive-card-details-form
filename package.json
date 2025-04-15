@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "5.0.1",
     "@prisma/client": "6.6.0",
+    "prisma": "6.6.0",
     "motion": "12.6.3",
     "next": "15.2.4",
     "react": "19.0.0",
@@ -31,7 +32,6 @@
     "eslint-config-next": "15.2.4",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "prisma": "6.6.0",
     "tailwind-merge": "3.0.2",
     "tailwindcss": "4.0.17",
     "typescript": "5.8.2"
