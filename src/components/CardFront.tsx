@@ -21,8 +21,8 @@ export default function CardFront({
           <p className="xs:text-base truncate text-xs font-medium tracking-[2px] text-nowrap text-white lg:text-xl">
             {cardNumber ? formatCardNumber(cardNumber) : "0000 0000 0000 0000"}
           </p>
-          <div className="flex justify-between text-xs font-medium tracking-[1px] text-white uppercase lg:text-base">
-            <p>{cardholderName ?? "Jane Appleseed"}</p>
+          <div className="flex justify-between truncate text-xs font-medium tracking-[1px] text-white uppercase lg:text-base">
+            <p className="truncate">{cardholderName || "Jane Appleseed"}</p>
             <p>
               {expMonth ? formatMonth(expMonth) : "00"}/
               {expYear ? fomrmatYear(expYear) : "0000"}
