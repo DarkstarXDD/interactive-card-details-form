@@ -32,7 +32,7 @@ export default function CardDetailsForm({
     register,
     formState: { errors },
     control,
-    setError,
+    // setError,
   } = useForm<CardFormType>({
     resolver: zodResolver(CardFormSchema),
   })
@@ -53,7 +53,8 @@ export default function CardDetailsForm({
         const serverResponse = await addCard(data)
 
         if (serverResponse) {
-          setError("root", serverResponse)
+          // setError("root", serverResponse)
+          console.log(serverResponse)
           setStatus("idle")
         } else {
           onSuccess()
