@@ -6,6 +6,7 @@ import TextField from "@/components/ui/TextField"
 import FieldError from "@/components/ui/FieldError"
 import RACDateField from "@/components/ui/RACDateField"
 import SubmitButton from "@/components/SubmitButton"
+import WarningMessage from "@/components/ui/WarningMessage"
 
 import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import { FormValuesType } from "@/lib/types"
@@ -60,40 +61,46 @@ export default function CardDetailsForm({
         }
       })}
     >
-      <div className="grid gap-5">
-        <TextField
-          label="Cardholder Name"
-          placeholder="e.g. Jane Appleseed"
-          {...register("cardholderName")}
-          errorMessage={errors.cardholderName?.message}
-        />
+      <div className="grid gap-8">
+        <WarningMessage />
 
-        <TextField
-          label="Card Number"
-          placeholder="e.g. 1234 5678 9123 0000"
-          {...register("cardNumber")}
-          errorMessage={errors.cardNumber?.message}
-        />
-
-        <div className="flex items-start gap-5">
-          <RACDateField
-            label="Exp. Date (MM/YY)"
-            name="expirationDate"
-            control={control}
-            errorMessage={
-              errors.expirationDate?.message ||
-              errors.expirationDate?.month?.message
-            }
+        <div className="grid gap-5">
+          <TextField
+            label="Cardholder Name"
+            placeholder="e.g. Jane Appleseed"
+            {...register("cardholderName")}
+            errorMessage={errors.cardholderName?.message}
           />
 
           <TextField
-            label="CVC"
-            placeholder="e.g. 123"
-            {...register("cvc")}
-            errorMessage={errors.cvc?.message}
+            label="Card Number"
+            placeholder="e.g. 1234 5678 9123 0000"
+            {...register("cardNumber")}
+            errorMessage={errors.cardNumber?.message}
           />
+
+          <div className="flex items-start gap-5">
+            <RACDateField
+              label="Exp. Date (MM/YY)"
+              name="expirationDate"
+              control={control}
+              errorMessage={
+                errors.expirationDate?.message ||
+                errors.expirationDate?.month?.message
+              }
+            />
+
+            <TextField
+              label="CVC"
+              placeholder="e.g. 123"
+              {...register("cvc")}
+              errorMessage={errors.cvc?.message}
+            />
+          </div>
+          {errors.root?.message && (
+            <FieldError>{errors.root.message}</FieldError>
+          )}
         </div>
-        {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
       </div>
 
       <SubmitButton status={status} />
