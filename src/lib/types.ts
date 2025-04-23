@@ -1,9 +1,9 @@
-export type FormValuesType = {
-  cardholderName?: string | undefined
-  cardNumber?: string | undefined
-  cvc?: string | undefined
+export type CardValuesType = {
+  cardholderName?: string
+  cardNumber?: string
+  cvc?: string
   expirationDate?: {
-    month?: number | undefined
-    year?: number | undefined
+    month?: number
+    year?: number
   }
 }

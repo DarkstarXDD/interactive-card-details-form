@@ -1,15 +1,17 @@
 "use client"
 
+import { useState } from "react"
+
+import type { CardValuesType } from "@/lib/types"
+
 import CardFront from "@/components/CardFront"
 import CardBack from "@/components/CardBack"
 import CardDetailsForm from "@/components/CardDetailsForm"
 import SuccessMessage from "@/components/SuccessMessage"
-import { useState } from "react"
-import { FormValuesType } from "@/lib/types"
 
 export default function MainPage() {
   const [isSubmitSucess, setIsSubmitSucess] = useState(false)
-  const [formValues, setFormValues] = useState<FormValuesType>()
+  const [cardValues, setCardValues] = useState<CardValuesType>()
 
   function showForm() {
     setIsSubmitSucess(false)
@@ -19,8 +21,8 @@ export default function MainPage() {
     setIsSubmitSucess(true)
   }
 
-  function updateFormValues(newValues: FormValuesType) {
-    setFormValues(newValues)
+  function updateCardValues(newValues: CardValuesType) {
+    setCardValues(newValues)
   }
 
   return (
@@ -30,12 +32,12 @@ export default function MainPage() {
       <div className="col-start-1 row-start-1 row-end-2 h-60 bg-[url(../assets/bg-main-mobile.png)] bg-cover bg-no-repeat lg:col-end-2 lg:min-h-dvh lg:bg-[url(../assets/bg-main-desktop.png)] xl:col-end-3"></div>
 
       <div className="col-start-1 row-start-1 row-end-3 m-auto grid w-full max-w-sm grid-cols-6 grid-rows-[repeat(11,_minmax(0,_1fr))] px-4 pt-8 lg:col-end-2 lg:max-w-md lg:grid-rows-[repeat(13,_minmax(0,_1fr))] lg:p-0 xl:col-start-2 xl:col-end-4 xl:max-w-135">
-        <CardBack cvc={formValues?.cvc} />
+        <CardBack cvc={cardValues?.cvc} />
         <CardFront
-          cardholderName={formValues?.cardholderName}
-          cardNumber={formValues?.cardNumber}
-          expMonth={formValues?.expirationDate?.month}
-          expYear={formValues?.expirationDate?.year}
+          cardholderName={cardValues?.cardholderName}
+          cardNumber={cardValues?.cardNumber}
+          expMonth={cardValues?.expirationDate?.month}
+          expYear={cardValues?.expirationDate?.year}
         />
       </div>
 
@@ -45,7 +47,7 @@ export default function MainPage() {
         ) : (
           <CardDetailsForm
             onSuccess={showSuccessMessage}
-            onUpdate={updateFormValues}
+            onUpdate={updateCardValues}
           />
         )}
       </div>

@@ -1,19 +1,19 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import { useForm, useWatch } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { addCard } from "@/actions/actions"
+import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
+import type { CardValuesType } from "@/lib/types"
+
 import TextField from "@/components/ui/TextField"
 import FieldError from "@/components/ui/FieldError"
 import RACDateField from "@/components/ui/RACDateField"
 import SubmitButton from "@/components/SubmitButton"
 import WarningMessage from "@/components/ui/WarningMessage"
-
-import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
-import { FormValuesType } from "@/lib/types"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, useWatch } from "react-hook-form"
-import { addCard } from "@/actions/actions"
-import { useEffect } from "react"
 
 export type SubmitButtonStatus = "idle" | "loading"
 
@@ -23,7 +23,7 @@ export default function CardDetailsForm({
   className,
 }: {
   onSuccess: () => void
-  onUpdate: (newValues: FormValuesType) => void
+  onUpdate: (newValues: CardValuesType) => void
   className?: string
 }) {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle")
