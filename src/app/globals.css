@@ -12,6 +12,7 @@
   --color-primary-foreground: hsl(0, 0%, 98%);
   --color-primary-foreground-muted: hsl(276, 9%, 78%);
   --color-primary-background: hsl(278, 68%, 11%);
+
   --color-border: hsl(270, 3%, 80%);
   --color-ring: hsl(270, 3%, 80%);
   --color-error: hsl(0, 50%, 45%);
