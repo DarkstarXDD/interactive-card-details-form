@@ -15,13 +15,14 @@ export default function AnimatedCheckmark() {
         viewBox="0 0 28 21"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-7"
       >
         <motion.path
           d="M2 9.91991L10.0801 18L26.0801 2"
           stroke="white"
           strokeWidth="3"
           initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
+          animate={{ pathLength: 1 }}
           transition={{ duration: 0.2, delay: 0.2 }}
         />
       </svg>
