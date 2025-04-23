@@ -77,6 +77,7 @@ export default function CardDetailsForm({
             placeholder="e.g. 1234 5678 9123 0000"
             {...register("cardNumber")}
             errorMessage={errors.cardNumber?.message}
+            inputMode="numeric"
           />
 
           <div className="flex items-start gap-5">
@@ -95,6 +96,7 @@ export default function CardDetailsForm({
               placeholder="e.g. 123"
               {...register("cvc")}
               errorMessage={errors.cvc?.message}
+              inputMode="numeric"
             />
           </div>
           {errors.root?.message && (
