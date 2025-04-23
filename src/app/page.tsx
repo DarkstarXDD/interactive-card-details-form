@@ -1,9 +1,9 @@
-import MainPage from "@/components/MainPage"
+import CardPage from "@/components/CardPage"
 
 export default function HomePage() {
   return (
     <main>
-      <MainPage />
+      <CardPage />
     </main>
   )
 }

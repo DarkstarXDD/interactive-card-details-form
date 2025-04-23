@@ -1,19 +1,21 @@
 "use client"
 
 import { useState } from "react"
+import { useForm, useWatch } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-import type { CardValuesType } from "@/lib/types"
+import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 
 import CardFront from "@/components/CardFront"
 import CardBack from "@/components/CardBack"
 import CardDetailsForm from "@/components/CardDetailsForm"
 import SuccessMessage from "@/components/SuccessMessage"
 
-export default function MainPage() {
+export default function CardPage() {
   const [isSubmitSucess, setIsSubmitSucess] = useState(false)
-  const [cardValues, setCardValues] = useState<CardValuesType>()
 
   function showForm() {
+    form.reset()
     setIsSubmitSucess(false)
   }
 
@@ -21,9 +23,11 @@ export default function MainPage() {
     setIsSubmitSucess(true)
   }
 
-  function updateCardValues(newValues: CardValuesType) {
-    setCardValues(newValues)
-  }
+  const form = useForm<CardFormType>({
+    resolver: zodResolver(CardFormSchema),
+  })
+
+  const cardValues = useWatch({ control: form.control })
 
   return (
     <div className="grid w-full lg:grid-cols-[30rem_1fr] xl:grid-cols-[10rem_20rem_13.75rem_1fr]">
@@ -45,10 +49,7 @@ export default function MainPage() {
         {isSubmitSucess ? (
           <SuccessMessage onContinue={showForm} />
         ) : (
-          <CardDetailsForm
-            onSuccess={showSuccessMessage}
-            onUpdate={updateCardValues}
-          />
+          <CardDetailsForm form={form} onSuccess={showSuccessMessage} />
         )}
       </div>
     </div>
