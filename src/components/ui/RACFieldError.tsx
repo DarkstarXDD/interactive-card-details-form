@@ -1,5 +1,5 @@
-import { ComponentProps } from "react"
 import { FieldError } from "react-aria-components"
+import type { ComponentProps } from "react"
 
 export default function RACFieldError({
   children,

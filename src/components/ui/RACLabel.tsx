@@ -1,6 +1,7 @@
-import { ComponentProps } from "react"
-import { cn } from "@/lib/utils"
 import { Label } from "react-aria-components"
+import type { ComponentProps } from "react"
+
+import { cn } from "@/lib/utils"
 
 export default function RACLabel({
   children,
