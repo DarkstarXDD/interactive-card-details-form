@@ -1,10 +1,12 @@
 "use client"
 
-import { type ComponentProps, useId } from "react"
+import { useId } from "react"
 
 import FieldError from "@/components/ui/FieldError"
 import Input from "@/components/ui/Input"
 import Label from "@/components/ui/Label"
+
+import type { ComponentProps } from "react"
 
 export default function TextField({
   label,

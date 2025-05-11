@@ -39,7 +39,7 @@ This is my solution to the [Interactive Card Details Form](https://www.frontendm
 - The form state is managed by React Hook Form. So inputs are uncontrolled. `useWatch()` hook from RHF gives the most recent values in the form inputs, so I used it to update the card UI as the user types.
 - While RHF allows us to use the native browser validation, I used Zod to do the validation since it gives a lot of control over the things we can validate over. Plus the same schema can be used for the server side validation as well.
 - Integrated Zod with RHF using `zodResolver` from `@hookform/resolvers/zod`.
-- On submit, client side validation runs first. If valid, data is sent to the backend using a server action.
+- On submit, client side validation runs first. If valid, data is sent to the backend (a server action).
 - The same Zod schema validates the data again inside the server action.
 - If validation passes, a Prisma query is called inside the server action and the data is submitted to the database.
 - If something goes wrong inside the server action (validation fails, prisma throws an error etc.) formatted error messages are returned to the frontend and displayed to the user. If successful no data is returned.

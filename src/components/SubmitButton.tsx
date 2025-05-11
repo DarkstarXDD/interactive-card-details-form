@@ -1,6 +1,7 @@
-import Button from "@/components/ui/Button"
-import type { SubmitButtonStatus } from "@/components/CardDetailsForm"
 import LoadingCircleSpinner from "@/components/LoadingCircleSpinner"
+import Button from "@/components/ui/Button"
+
+import type { SubmitButtonStatus } from "@/components/CardDetailsForm"
 
 export default function SubmitButton({
   status,

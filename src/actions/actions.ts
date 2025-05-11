@@ -1,7 +1,9 @@
 "use server"
 
-import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
 import prisma from "@/lib/prisma"
+import { CardFormSchema } from "@/lib/schemas/cardFormSchema"
+
+import type { CardFormType } from "@/lib/schemas/cardFormSchema"
 
 export async function addCard(cardData: CardFormType) {
   const validationResult = CardFormSchema.safeParse(cardData)

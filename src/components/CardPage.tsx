@@ -1,15 +1,16 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm, useWatch } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 
-import { CardFormSchema, type CardFormType } from "@/lib/schemas/cardFormSchema"
-
-import CardFront from "@/components/CardFront"
 import CardBack from "@/components/CardBack"
 import CardDetailsForm from "@/components/CardDetailsForm"
+import CardFront from "@/components/CardFront"
 import SuccessMessage from "@/components/SuccessMessage"
+import { CardFormSchema } from "@/lib/schemas/cardFormSchema"
+
+import type { CardFormType } from "@/lib/schemas/cardFormSchema"
 
 export default function CardPage() {
   const [isSubmitSucess, setIsSubmitSucess] = useState(false)

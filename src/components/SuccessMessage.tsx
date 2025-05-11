@@ -1,5 +1,5 @@
-import Button from "@/components/ui/Button"
 import AnimatedCheckmark from "@/components/AnimatedCheckmark"
+import Button from "@/components/ui/Button"
 
 export default function SuccessMessage({
   onContinue,
