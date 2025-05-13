@@ -1,5 +1,7 @@
 "use server"
 
+import { Prisma } from "@prisma/client"
+
 import prisma from "@/lib/prisma"
 import { CardFormSchema } from "@/lib/schemas/cardFormSchema"
 
@@ -15,19 +17,6 @@ export async function addCard(cardData: CardFormType) {
   }
 
   try {
-    const doCardExist =
-      (await prisma.cardDetails.count({
-        where: { cardNumber: cardData.cardNumber },
-      })) > 0
-
-    if (doCardExist) {
-      return {
-        type: "server_error",
-        message:
-          "This card number has already been added. Please add a different card.",
-      }
-    }
-
     await prisma.cardDetails.create({
       data: {
         cardholderName: cardData.cardholderName,
@@ -37,9 +26,18 @@ export async function addCard(cardData: CardFormType) {
         cvc: cardData.cvc,
       },
     })
-  } catch (error) {
-    console.error(error)
-
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === "P2002"
+    ) {
+      return {
+        type: "server_error",
+        message:
+          "This card number has already been added. Please add a different card.",
+      }
+    }
+    console.error(e)
     return {
       type: "server_error",
       message: "Server error. Unable to add card. Please try again.",
